@@ -1,27 +1,15 @@
 const pullButton = document.getElementById('ziehen');
-const players_amt = 4;
-let murder_amt = 1;
-let innocent_amt = players_amt - murder_amt;
-
-function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+let roles = ['Mörder', 'Mensch', 'Mensch1', 'Mensch'];
 
 pullButton.addEventListener('click', () => {
     let pulledRole;
-    if (murder_amt > 0) {
-        let pulledNumber = randomIntFromInterval(0, innocent_amt);
-        console.log(pulledNumber);
-        if (pulledNumber == 0) {
-            pulledRole = 'Mörder';
-            murder_amt--;
-        } else {
-            pulledRole = 'Unschuldig';
-            innocent_amt--;
-        }
+    if (roles.length > 0) {
+        pulledRole = roles[Math.floor(Math.random() * roles.length)];
+        //remove one element from the array (not all of type)
+        roles.splice(roles.indexOf(pulledRole), 1);
+        console.log(roles);
         Swal.fire(pulledRole);
     } else {
-        Swal.fire('Unschuldig');
+        Swal.fire('Es gibt keine Rollen mehr!');
     }
 });
